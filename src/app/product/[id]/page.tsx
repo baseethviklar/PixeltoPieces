@@ -1,13 +1,17 @@
 import Image from 'next/image';
+import { getProductBySlug } from '@/lib/products';
 
-export default function ProductPage() {
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const product = getProductBySlug(resolvedParams.id);
+
   return (
     <div className="product-page-container">
       {/* Top Section */}
       <div className="product-top-section">
         {/* Left: Image Carousel */}
         <div className="product-image-section">
-          <div className="product-image-main" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=800&q=80')" }}>
+          <div className="product-image-main" style={{ backgroundImage: `url('${product.image}')` }}>
             <button className="wishlist-btn">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             </button>
@@ -19,26 +23,24 @@ export default function ProductPage() {
 
         {/* Right: Details & Add to Cart */}
         <div className="product-details-section">
-          <h1 className="product-page-title">Customised QR Code Stand</h1>
-          <span className="badge-new">New</span>
+          <h1 className="product-page-title">{product.name}</h1>
+          {product.badge && <span className="badge-new" style={{background: 'var(--secondary-color)'}}>{product.badge}</span>}
           
-          <p className="product-subtitle">Professional QR display stand for everyday business use</p>
+          <p className="product-subtitle">Premium custom design options for everyday business use</p>
           
           <ul className="product-features-list">
-            <li>Customised with your QR code, logo or message</li>
-            <li>Ideal for UPI payments, menus, social media links & more</li>
-            <li>Perfect for counters, tables, reception desks & checkout areas</li>
-            <li>Size: 6 inches x 4 inches</li>
-            <li>Decoration Technology: Digital Printing</li>
-            <li>Cash on Delivery available</li>
+            <li>Fully customised with your logo, text, or artwork</li>
+            <li>Premium quality printing materials used</li>
+            <li>Ideal for branding, events, and giveaways</li>
+            <li>Cash on Delivery available across India</li>
             <li><strong>Price below is MRP (inclusive of all taxes)</strong></li>
           </ul>
           
           <a href="#details" className="see-details-link">See Details</a>
           
           <div className="product-price-block">
-            <h2>₹220.00</h2>
-            <span>1 unit</span>
+            <h2>₹{product.price}.00</h2>
+            <span>{product.unit}</span>
           </div>
 
           <div className="delivery-info">
@@ -49,9 +51,9 @@ export default function ProductPage() {
           <div className="quantity-selector">
             <label>Quantity</label>
             <select className="form-input">
-              <option>1 (₹220.00 / unit)</option>
-              <option>5 (₹200.00 / unit)</option>
-              <option>10 (₹180.00 / unit)</option>
+              <option>1 (₹{product.price}.00 / {product.unit.replace(/[0-9]+ /g, '')})</option>
+              <option>5 (₹{Math.floor(product.price * 0.9)}.00 / {product.unit.replace(/[0-9]+ /g, '')})</option>
+              <option>10 (₹{Math.floor(product.price * 0.8)}.00 / {product.unit.replace(/[0-9]+ /g, '')})</option>
             </select>
           </div>
           
@@ -62,18 +64,16 @@ export default function ProductPage() {
       {/* Bottom Section: Details */}
       <div id="details" className="product-bottom-section">
         <div className="product-description-text">
-          <h2>Customised QR Code Stand — For Shops, Counters & Easy UPI Payments</h2>
+          <h2>{product.name} — Premium Custom Printing</h2>
           
-          <h3>Why Use a QR Code Stand for Your Business?</h3>
-          <p>Make scanning quick and effortless with a QR code stand designed to keep your code clearly visible at the point of interaction. Whether it's for UPI payments, a digital menu, social media links, or a feedback form — a dedicated stand ensures customers don't have to search for a printed slip or ask where to scan.</p>
-          <p>This compact table QR code stand measures 6 inches x 4 inches, making it easy to place on counters, tables, reception desks, or checkout areas without taking up much space. The QR code is digitally printed for sharp visibility and reliable scanning every time.</p>
+          <h3>Why Choose Our Custom Prints?</h3>
+          <p>We deliver high-quality, professional printing services designed to elevate your brand. Whether you're ordering marketing materials, custom apparel, or everyday business stationery, our products are built to leave a lasting impression.</p>
 
-          <h3>Customise Your QR Code Stand with Logo & Branding</h3>
-          <p>Unlike generic QR code stands, this one can be fully personalised with your business name, logo, QR code, and a short message. Whether you need a UPI QR code stand for your shop counter or a branded display stand for events, customisation helps your stand look professional and on-brand.</p>
-          <p>Add your GPay, PhonePe, Paytm, or any UPI QR code alongside your logo — so customers know exactly who they're paying.</p>
+          <h3>Customise with Your Logo & Branding</h3>
+          <p>Easily personalize this item with your business name, logo, and artwork. Our intuitive design studio makes it simple to align every print perfectly with your brand identity.</p>
         </div>
         <div className="product-description-image">
-          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="QR Code Stand on Counter" style={{width: '100%', borderRadius: '16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)'}} />
+          <img src={product.image.startsWith('http') ? product.image : "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80"} alt={product.name} style={{width: '100%', borderRadius: '16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)'}} />
         </div>
       </div>
     </div>

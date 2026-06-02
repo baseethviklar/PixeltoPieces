@@ -2,7 +2,7 @@
 
 First off, thank you for considering contributing to PixelToPieces! Whether you're a seasoned developer or this is your very first open-source contribution, we are incredibly excited to have you here. 
 
-This document is designed to make it as easy as possible for you to get involved.
+
 
 ---
 
