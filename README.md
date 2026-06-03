@@ -48,9 +48,17 @@ Want to see the magic on your local machine? It's as easy as pie 🥧:
 
 ---
 
-## 🤝 We ❤️ Contributors!
+## 🤝 For  Contributors!  
 
-**You don't need to be an expert to contribute!** Whether you're fixing a tiny typo, adding a completely new feature, squashing bugs, or improving our UI, we want **YOU**. 🫵
+You don't need to be an expert to contribute! Whether you're fixing a tiny typo, adding a completely new feature, squashing bugs, or improving our UI, 🫵
+
+### How you can you work in this project? :
+- 🐛 Find a bug? Open an issue and let us know!
+- 💅 Have a design idea? We love fresh UI/UX perspectives.
+- 💻 Love writing code? Check out our open issues labeled good first issue!
+- 📖 Documentation: Help us make these docs even better.
+
+Read our friendly [Contributing Guidelines](CONTRIBUTING.md) to get started on your first Pull Request!
 
 ### How you can help right now:
 - 🐛 **Find a bug?** Open an issue and let us know!
